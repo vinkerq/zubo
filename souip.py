@@ -5,29 +5,20 @@ fofa_search_onepage.py
 使用已有 qbase64 查询 FOFA，仅抓取第一页结果，并保存 ip 到 fofa-ip.txt
 """
 
-import os
 import requests
-import sys
 
 # ========== 配置区 ==========
-EMAIL = os.environ.get("FOFA_EMAIL", "")  # FOFA 邮箱
-KEY = os.environ.get("FOFA_KEY", "")      # FOFA API Key
-
-# 已经 base64 编码好的查询
+EMAIL = "lcsn15801@163.com"      # FOFA 邮箱
+KEY = "22239dc8660961e8b2fb7b9ebe6aee26"           # FOFA API Key
 QBASE64 = "Ym9keT0iaXB0di9saXZlL3poX2NuLmpzIiAmJiBzdGF0dXNfY29kZT0iMjAwIiAmJiBjb3VudHJ5PSJDTiI="
 
-PAGE_SIZE = 1000        # 每页返回条数（可根据账户权限调整）
+PAGE_SIZE = 1000        # 每页返回条数
 OUTPUT_FILE = "fofa-ip.txt"
+API_URL = "https://fofa.info/api/v1/search/all"
 # ============================
 
-API_URL = "https://fofa.info/api/v1/search/all"
-
-def check_credentials():
-    if not EMAIL or not KEY:
-        print("错误：未设置 FOFA_EMAIL 或 FOFA_KEY（环境变量）。")
-        sys.exit(1)
-
 def fetch_first_page():
+    """抓取 FOFA 查询第一页结果"""
     params = {
         "email": EMAIL,
         "key": KEY,
@@ -41,6 +32,7 @@ def fetch_first_page():
     return resp.json()
 
 def extract_ips(results) -> set:
+    """从 FOFA 返回结果中提取 IP"""
     ips = set()
     for item in results:
         if isinstance(item, (list, tuple)) and len(item) > 0:
@@ -54,7 +46,6 @@ def extract_ips(results) -> set:
     return ips
 
 def main():
-    check_credentials()
     print("开始查询 FOFA（仅第一页）")
     try:
         data = fetch_first_page()
@@ -65,7 +56,10 @@ def main():
 
         ips = extract_ips(results)
         if ips:
-            sorted_ips = sorted(ips, key=lambda x: tuple(int(p) if p.isdigit() else 0 for p in x.split(".")[:4]))
+            sorted_ips = sorted(
+                ips,
+                key=lambda x: tuple(int(p) if p.isdigit() else 0 for p in x.split(".")[:4])
+            )
             with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                 for ip in sorted_ips:
                     f.write(ip + "\n")
