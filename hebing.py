@@ -1,8 +1,8 @@
 import os
 from datetime import datetime, timezone, timedelta
 
-IP_DIR = "IP"     # 存放 IP 文件
-RTP_DIR = "RTP"   # 存放 RTP 文件
+IP_DIR = "ip"     # 存放 IP 文件
+RTP_DIR = "rtp"   # 存放 RTP 文件
 OUTPUT_FILE = "IPTV.txt"
 
 def extract_province_operator(filename):
