@@ -3,7 +3,7 @@ from datetime import datetime, timezone, timedelta
 
 IP_DIR = "ip"     # 存放 IP 文件
 RTP_DIR = "rtp"   # 存放 RTP 文件
-OUTPUT_FILE = "IPTV.txt"
+OUTPUT_FILE = "useIPTV.txt"
 
 def extract_province_operator(filename):
     """从文件名提取省份和运营商，如 广东电信.txt -> 广东,电信"""
