@@ -6,11 +6,17 @@ fofa_search_onepage.py
 """
 
 import requests
+import base64
 
 # ========== 配置区 ==========
 EMAIL = "lcsn15801@163.com"      # FOFA 邮箱
-KEY = "22239dc8660961e8b2fb7b9ebe6aee26"           # FOFA API Key
-QBASE64 = "Ym9keT0iaXB0di9saXZlL3poX2NuLmpzIiAmJiBzdGF0dXNfY29kZT0iMjAwIiAmJiBjb3VudHJ5PSJDTiI="
+KEY = "22239dc8660961e8b2fb7b9ebe6aee26"  # FOFA API Key
+
+# FOFA 搜索语句
+SEARCH_QUERY = 'body="iptv/live/zh_cn.js" && status_code="200" && country="CN"'
+
+# 将搜索语句转换成 Base64（FOFA API 要求）
+QBASE64 = base64.b64encode(SEARCH_QUERY.encode()).decode()
 
 PAGE_SIZE = 1000        # 每页返回条数
 OUTPUT_FILE = "fofa-ip.txt"
