@@ -13,7 +13,7 @@ EMAIL = "lcsn15801@163.com"      # FOFA 邮箱
 KEY = "22239dc8660961e8b2fb7b9ebe6aee26"  # FOFA API Key
 
 # FOFA 搜索语句
-SEARCH_QUERY = 'body="iptv/live/zh_cn.js" && status_code="200" && country="CN"'
+SEARCH_QUERY = "iptv/live/zh_cn.js"
 
 # 将搜索语句转换成 Base64（FOFA API 要求）
 QBASE64 = base64.b64encode(SEARCH_QUERY.encode()).decode()
@@ -82,3 +82,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
