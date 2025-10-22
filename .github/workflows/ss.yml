@@ -1,0 +1,23 @@
+name: Run souip.py
+
+on:
+  push:
+    branches:
+      - main       # 每次 push 到 main 分支时触发
+  schedule:
+    - cron: '0 0 * * *'   # 每天 UTC 0 点自动运行
+
+jobs:
+  run-souip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
